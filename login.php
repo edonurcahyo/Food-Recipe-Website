@@ -1,52 +1,85 @@
 <?php
 session_start();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
+    $name = $_POST['name'];
     $password = $_POST['password'];
 
     // Koneksi ke database
-    $conn = new mysqli('localhost', 'root', '', 'recipe_app');
+    $conn = new mysqli('localhost', 'root', '', 'food_recipe');
 
+    // Periksa koneksi
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-    // Mencari pengguna berdasarkan email
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    // Mencari pengguna berdasarkan name
+    $stmt = $conn->prepare("SELECT * FROM users WHERE name = ?");
+    $stmt->bind_param("s", $name);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
-    
-    // Verifikasi password
-    if (password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['email'] = $user['email'];
-        header("Location: home.php");
+
+    if ($user) {
+        // Jika pengguna ditemukan, periksa kata sandi
+        if (password_verify($password, $user['password'])) {
+            // Login berhasil, simpan sesi
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['name'] = $user['name'];
+            header("Location: home.php");
+            exit();
+        } else {
+            $error_message = "Kata sandi salah!";
+        }
     } else {
-        echo "Email atau kata sandi salah!";
+        $error_message = "Nama atau kata sandi salah!";
     }
-    
+
     $stmt->close();
     $conn->close();
 }
 ?>
-
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Pengguna</title>
-    <link rel="stylesheet" href="/Food-Recipe-Website/css/style.css">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="css\login.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="form-container">
-        <h2>Login</h2>
+    <div class="wrapper">
         <form method="POST" action="">
-            <label>Email:</label><input type="email" name="email" required><br>
-            <label>Kata Sandi:</label><input type="password" name="password" required><br>
-            <button type="submit">Login</button>
+            <h1>Login</h1>
+            <?php
+            if (isset($error_message)) {
+                echo "<p style='color:red;'>$error_message</p>";
+            }
+            ?>
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div> 
+           
+            <div class="remember-forgot">
+                <label><input type="checkbox">Remember me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+    
+            <button type="submit" class="btn">Login</button>
+    
+            <div class="register-link">
+                <p>Don't have an account? 
+                    <a href="register.php"> <b>Register</b></a>
+                </p>
+            </div>
         </form>
     </div>
 </body>
