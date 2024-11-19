@@ -4,15 +4,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    // Koneksi ke database
     $conn = new mysqli('localhost', 'root', '', 'food_recipe');
 
-    // Periksa koneksi
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-    // Mengecek apakah email atau nama sudah ada
     $stmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -21,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($stmt->num_rows > 0) {
         $error_message = "Email sudah terdaftar. Silakan gunakan email lain.";
     } else {
-        // Menyimpan data pengguna baru
         $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $name, $email, $password);
         if ($stmt->execute()) {

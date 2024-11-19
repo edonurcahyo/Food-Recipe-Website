@@ -5,15 +5,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $password = $_POST['password'];
 
-    // Koneksi ke database
     $conn = new mysqli('localhost', 'root', '', 'food_recipe');
 
-    // Periksa koneksi
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-    // Mencari pengguna berdasarkan name
     $stmt = $conn->prepare("SELECT * FROM users WHERE name = ?");
     $stmt->bind_param("s", $name);
     $stmt->execute();
@@ -21,9 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $result->fetch_assoc();
 
     if ($user) {
-        // Jika pengguna ditemukan, periksa kata sandi
         if (password_verify($password, $user['password'])) {
-            // Login berhasil, simpan sesi
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             header("Location: home.php");
