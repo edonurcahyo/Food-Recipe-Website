@@ -8,7 +8,6 @@ if (!isset($_SESSION['user_id'])) {
 $conn = new mysqli('localhost', 'root', '', 'food_recipe');
 $user_id = $_SESSION['user_id'];
 
-// Ambil daftar bookmark pengguna dari database
 $sql = "SELECT r.* FROM recipes r JOIN bookmarks b ON r.id = b.recipe_id WHERE b.user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
@@ -22,18 +21,23 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Bookmark</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
 </head>
 <body>
-    <div class="navbar">
-        <a href="home.php">Home</a>
-        <a href="bookmark.php">Bookmark</a>
-        <a href="logout.php">Logout</a>
+    <div class="topnav" id="myTopnav">
+        <a href="/home.php">Home</a>
+        <a href="/search.php">Pencarian Resep</a>
+        <a href="bookmark.php" class="active">Bookmark</a>
+        <a href="/logout.php">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
 
     <div class="container">
         <h1 class="title">Resep yang Ditandai</h1>
-        <div id="bookmark-list">
+        <div id="recipe-list">
             <?php while ($recipe = $result->fetch_assoc()) { ?>
                 <div class="recipe-card">
                     <?php if (!empty($recipe['image_url'])) { ?>
@@ -45,7 +49,6 @@ $result = $stmt->get_result();
                         <a href="recipe_detail.php?id=<?php echo $recipe['id']; ?>"><?php echo htmlspecialchars($recipe['title']); ?></a>
                     </h2>
                     <p><?php echo nl2br(htmlspecialchars($recipe['description'])); ?></p>
-                    <!-- Form untuk menghapus resep dari bookmark -->
                     <form action="remove_from_bookmark.php" method="POST">
                         <input type="hidden" name="recipe_id" value="<?php echo $recipe['id']; ?>">
                         <button type="submit" class="btn btn-delete">Hapus dari Bookmark</button>
@@ -54,6 +57,17 @@ $result = $stmt->get_result();
             <?php } ?>
         </div>
     </div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
 </body>
 </html>
 
