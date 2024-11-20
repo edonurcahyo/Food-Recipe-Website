@@ -8,7 +8,10 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $description = $_POST['description'];
+    $ingredients = $_POST['ingredients'];
+    $instructions = $_POST['instructions'];
 
+    // Proses upload gambar
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
@@ -26,10 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $target_file = null; 
     }
+
     $conn = new mysqli('localhost', 'root', '', 'food_recipe');
 
-    $stmt = $conn->prepare("INSERT INTO recipes (title, description, image_url) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $title, $description, $target_file);
+    // Simpan data resep ke database
+    $stmt = $conn->prepare("INSERT INTO recipes (title, description, ingredients, instructions, image_url) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $title, $description, $ingredients, $instructions, $target_file);
     $stmt->execute();
 
     echo "Resep berhasil ditambahkan!";
@@ -63,6 +68,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="description">Deskripsi Resep</label>
                 <textarea id="description" name="description" placeholder="Masukkan deskripsi resep" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="ingredients">Bahan</label>
+                <textarea id="ingredients" name="ingredients" placeholder="Masukkan bahan-bahan resep" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="instructions">Instruksi</label>
+                <textarea id="instructions" name="instructions" placeholder="Masukkan instruksi langkah demi langkah" required></textarea>
             </div>
 
             <div class="form-group">

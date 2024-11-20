@@ -28,21 +28,25 @@ $conn->close();
     </div>
 
     <div class="container">
-        <?php if ($recipe) : ?>
-            <h1><?= htmlspecialchars($recipe['title']) ?></h1>
-            <?php if (!empty($recipe['image'])) : ?>
-                <img src="uploads/<?= htmlspecialchars($recipe['image']) ?>" alt="<?= htmlspecialchars($recipe['title']) ?>" class="recipe-image">
-            <?php endif; ?>
-            <div class="recipe-section">
-                <p><strong>Bahan:</strong><br><?= nl2br(htmlspecialchars($recipe['ingredients'])) ?></p>
-            </div>
-            <div class="recipe-section">
-                <p><strong>Instruksi:</strong><br><?= nl2br(htmlspecialchars($recipe['instructions'])) ?></p>
-            </div>
-        <?php else : ?>
-            <p>Resep tidak ditemukan.</p>
+    <?php if ($recipe) : ?>
+        <h1><?= htmlspecialchars($recipe['title']) ?></h1>
+        <?php if (!empty($recipe['image'])) : ?>
+            <img src="uploads/<?= htmlspecialchars($recipe['image']) ?>" alt="<?= htmlspecialchars($recipe['title']) ?>" class="recipe-image">
         <?php endif; ?>
-        <a href="home.php" class="back-link">Kembali ke Daftar Resep</a>
-    </div>
+        <div class="recipe-section">
+            <p><strong>Deskripsi:</strong><br><?= nl2br(htmlspecialchars($recipe['description'])) ?></p> <!-- Tambahan deskripsi -->
+        </div>
+        <div class="recipe-section">
+            <p><strong>Bahan:</strong><br><?= nl2br(htmlspecialchars($recipe['ingredients'])) ?></p>
+        </div>
+        <div class="recipe-section">
+            <p><strong>Instruksi:</strong><br><?= nl2br(htmlspecialchars($recipe['instructions'])) ?></p>
+        </div>
+    <?php else : ?>
+        <p>Resep tidak ditemukan.</p>
+    <?php endif; ?>
+    <a href="/home.php" class="btn">Kembali ke Daftar Resep</a>
+</div>
+
 </body>
 </html>

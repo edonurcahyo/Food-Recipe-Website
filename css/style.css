@@ -62,15 +62,15 @@ a:active {
 }
 
 .btn-add {
-    background-color: #7e817e;
-    color: white;
+    background-color: #f8ce12;
+    color: rgb(10, 10, 10);
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
 }
 
 .btn-add:hover {
-    background-color: #686969;
+    background-color: #d8d523;
 }
 
 #recipe-list {
@@ -80,10 +80,11 @@ a:active {
 }
 
 .recipe-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
 }
@@ -92,72 +93,59 @@ a:active {
     transform: scale(1.05);
 }
 
-.recipe-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.recipe-info h2 {
-    font-size: 20px;
+.recipe-card h2 {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-size: 1.5em;
     color: #333;
-    margin-bottom: 10px;
 }
 
-.recipe-info p {
-    font-size: 14px;
-    color: #666;
+.recipe-card p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
 }
 
-.recipe-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-.recipe-actions button {
-    padding: 8px 12px;
-    font-size: 14px;
-    border: none;
+.recipe-card .recipe-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
     text-decoration: none;
-}
-
-.btn-delete {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-}
-
-.btn-delete:hover {
-    background-color: #c0392b;
-}
-
-.btn-edit {
-    background-color: #3498db;
-    color: white;
-    border: none;
-}
-
-.btn-edit:hover {
-    background-color: #2980b9;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .btn:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    background-color: #161616;
+}
+
+
+.btn-delete {
+    background-color: #dc3545;
+    margin-right: 5px;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-edit {
+    background-color: #28a745;
+}
+
+.btn-edit:hover {
+    background-color: #218838;
 }
 
 .recipe-image.default-image {

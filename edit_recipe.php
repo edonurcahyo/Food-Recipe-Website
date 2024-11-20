@@ -46,6 +46,9 @@ $recipe = $result->fetch_assoc();
             <label for="title">Judul Resep</label>
             <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($recipe['title']); ?>" required>
 
+            <label for="description">Deskripsi</label> 
+            <textarea id="description" name="description" required><?php echo htmlspecialchars($recipe['description']); ?></textarea>
+
             <label for="ingredients">Bahan</label>
             <textarea id="ingredients" name="ingredients" required><?php echo htmlspecialchars($recipe['ingredients']); ?></textarea>
 
@@ -56,17 +59,15 @@ $recipe = $result->fetch_assoc();
             <input type="file" name="image" id="image">
 
             <?php if (!empty($recipe['image_url'])) { ?>
-    <div class="current-image">
-        <p>Gambar saat ini:</p>
-        <img src="<?php echo htmlspecialchars($recipe['image_url']); ?>" alt="Gambar Resep" class="recipe-image">
-    </div>
-<?php } ?>
->
-
+                <div class="current-image">
+                    <p>Gambar saat ini:</p>
+                    <img src="<?php echo htmlspecialchars($recipe['image_url']); ?>" alt="Gambar Resep" class="recipe-image">
+                </div>
+            <?php } ?>
+            
             <button type="submit">Simpan Perubahan</button>
         </form>
     </div>
 </body>
 </html>
-
 <?php $conn->close(); ?>
