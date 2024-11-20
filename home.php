@@ -24,6 +24,7 @@ $result = $conn->query($sql);
         <a href="/home.php" class="active">Home</a>
         <a href="/search.php">Pencarian Resep</a>
         <a href="/logout.php">Logout</a>
+        <a href="bookmark.php">Bookmark</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
         </a>
@@ -48,6 +49,12 @@ $result = $conn->query($sql);
                     <p><?php echo nl2br(htmlspecialchars($recipe['description'])); ?></p>
                     <button onclick="deleteRecipe(<?php echo $recipe['id']; ?>)" class="btn btn-delete">Hapus</button>
                     <a href="edit_recipe.php?id=<?php echo $recipe['id']; ?>" class="btn btn-edit">Edit</a>
+                    <form action="add_to_bookmark.php" method="POST">
+                        <input type="hidden" name="recipe_id" value="<?php echo $recipe['id']; ?>">
+                        <button type="submit" class="btn btn-add-bookmark">Tambahkan ke Bookmark</button>
+                    </form>
+
+                    
                 </div>
             <?php } ?>
         </div>
