@@ -30,12 +30,18 @@ $recipe = $result->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Resep</title>
     <link rel="stylesheet" href="css/edit.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="shortcut icon" href="/image/icon.png" type="image/x-icon">
 </head>
 <body>
-    <div class="navbar">
-        <a href="home.php">Home</a>
-        <a href="search.php">Pencarian Resep</a>
-        <a href="logout.php">Logout</a>
+<div class="topnav" id="myTopnav">
+        <a href="/home.php">Home</a>
+        <a href="/search.php">Pencarian Resep</a>
+        <a href="bookmark.php">Bookmark</a>
+        <a href="/logout.php">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+        </a>
     </div>
 
     <div class="container">

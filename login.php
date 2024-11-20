@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login Form</title>
     <link rel="stylesheet" href="css\login.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/image/icon.png" type="image/x-icon">
 </head>
 <body>
     <div class="wrapper">

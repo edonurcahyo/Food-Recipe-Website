@@ -23,6 +23,7 @@ $result = $stmt->get_result();
     <title>Halaman Bookmark</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="shortcut icon" href="/image/icon.png" type="image/x-icon">
 </head>
 <body>
     <div class="topnav" id="myTopnav">
