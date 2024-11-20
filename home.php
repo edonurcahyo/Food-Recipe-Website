@@ -17,14 +17,17 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Utama - Daftar Resep</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
-    <div class="navbar">
-        <a href="home.php">Home</a>
-        <a href="search.php">Pencarian Resep</a>
-        <a href="logout.php">Logout</a>
+    <div class="topnav" id="myTopnav">
+        <a href="/home.php" class="active">Home</a>
+        <a href="/search.php">Pencarian Resep</a>
+        <a href="/logout.php">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+        </a>
     </div>
-    
     <div class="container">
         <h1 class="title">Daftar Resep</h1>
 

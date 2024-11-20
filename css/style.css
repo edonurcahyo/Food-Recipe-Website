@@ -17,7 +17,7 @@ a {
 }
 
 a:hover {
-    color: #3498db;
+    color: #141414;
 }
 
 a:active {
@@ -60,6 +60,11 @@ a:active {
     text-align: right;
     margin-bottom: 20px;
 }
+
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
 
 .btn-add {
     background-color: #f8ce12;
