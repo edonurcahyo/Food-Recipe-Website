@@ -27,54 +27,58 @@ $recommendationsResult = $conn->query($recommendationsSql);
     <link rel="shortcut icon" href="/image/icon.png" type="image/x-icon">
 </head>
 <body>
-<div class="topnav" id="myTopnav">
-<a href="/home.php">Home</a>
-        <a href="/search.php" class="active" >Pencarian Resep</a>
+    <div class="topnav" id="myTopnav">
+        <a href="/home.php">Home</a>
+        <a href="/search.php" class="active">Pencarian Resep</a>
         <a href="bookmark.php">Bookmark</a>
         <a href="/logout.php">Logout</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
+            <i class="fa fa-bars"></i>
         </a>
     </div>
 
-    <div class="search-container">
-        <h1>Cari Resep</h1>
-        <form method="GET" action="">
-            <input type="text" name="search" placeholder="Cari resep..." value="<?= htmlspecialchars($searchTerm) ?>" class="search-input">
-            <button type="submit" class="search-btn">Cari</button>
-        </form>
-    </div>
+    <div class="container">
+        <div class="search-container">
+            <h1>Cari Resep</h1>
+            <form method="GET" action="">
+                <input type="text" name="search" placeholder="Cari resep..." value="<?= htmlspecialchars($searchTerm) ?>" class="search-input">
+                <button type="submit" class="search-btn">Cari</button>
+            </form>
+        </div>
 
-    <div class="recipe-list">
         <?php if (!empty($searchTerm) && $result->num_rows > 0): ?>
-            <h2>Hasil Pencarian</h2>
-            <?php while ($recipe = $result->fetch_assoc()): ?>
-                <div class="recipe-card">
-                    <?php if (!empty($recipe['image_url'])): ?>
-                        <img src="<?= htmlspecialchars($recipe['image_url']) ?>" alt="Gambar <?= htmlspecialchars($recipe['title']) ?>" class="recipe-image">
-                    <?php endif; ?>
-                    <h3><a href="recipe_detail.php?id=<?= $recipe['id'] ?>"><?= htmlspecialchars($recipe['title']) ?></a></h3>
-                    <p><?= substr($recipe['description'], 0, 100) ?>...</p>
-                </div>
-            <?php endwhile; ?>
+            <h2 class="search-results-heading">Hasil Pencarian</h2>
+            <div class="recipe-list">
+                <?php while ($recipe = $result->fetch_assoc()): ?>
+                    <div class="recipe-card">
+                        <?php if (!empty($recipe['image_url'])): ?>
+                            <img src="<?= htmlspecialchars($recipe['image_url']) ?>" alt="Gambar <?= htmlspecialchars($recipe['title']) ?>" class="recipe-image">
+                        <?php endif; ?>
+                        <h3><a href="recipe_detail.php?id=<?= $recipe['id'] ?>"><?= htmlspecialchars($recipe['title']) ?></a></h3>
+                        <p><?= substr($recipe['description'], 0, 100) ?>...</p>
+                    </div>
+                <?php endwhile; ?>
+            </div>
         <?php elseif (!empty($searchTerm)): ?>
-            <p>Tidak ada resep yang ditemukan.</p>
+            <h2 class="search-results-heading">Tidak ada resep yang ditemukan.</h2>
+        <?php endif; ?>
+
+        <?php if (empty($searchTerm)): ?>
+            <div class="recommendations">
+                <h2 class="search-results-heading">Rekomendasi Resep</h2>
+                <div class="recipe-list">
+                    <?php while ($recipe = $recommendationsResult->fetch_assoc()): ?>
+                        <div class="recipe-card">
+                            <?php if (!empty($recipe['image_url'])): ?>
+                                <img src="<?= htmlspecialchars($recipe['image_url']) ?>" alt="Gambar <?= htmlspecialchars($recipe['title']) ?>" class="recipe-image">
+                            <?php endif; ?>
+                            <h3><a href="recipe_detail.php?id=<?= $recipe['id'] ?>"><?= htmlspecialchars($recipe['title']) ?></a></h3>
+                            <p><?= substr($recipe['description'], 0, 100) ?>...</p>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+            </div>
         <?php endif; ?>
     </div>
-
-    <?php if (empty($searchTerm)): ?>
-        <div class="recommendations">
-            <h2>Rekomendasi Resep</h2>
-            <?php while ($recipe = $recommendationsResult->fetch_assoc()): ?>
-                <div class="recipe-card">
-                    <?php if (!empty($recipe['image_url'])): ?>
-                        <img src="<?= htmlspecialchars($recipe['image_url']) ?>" alt="Gambar <?= htmlspecialchars($recipe['title']) ?>" class="recipe-image">
-                    <?php endif; ?>
-                    <h3><a href="recipe_detail.php?id=<?= $recipe['id'] ?>"><?= htmlspecialchars($recipe['title']) ?></a></h3>
-                    <p><?= substr($recipe['description'], 0, 100) ?>...</p>
-                </div>
-            <?php endwhile; ?>
-        </div>
-    <?php endif; ?>
 </body>
 </html>
